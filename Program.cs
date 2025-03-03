@@ -3,20 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-namespace TP_MOD3
+public class MainForm : Form
 {
-    static class Program
+    private TextBox textBox;
+    private Button submitButton;
+    private Label outputLabel;
+
+    public MainForm()
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        this.Text = "Input Nama Praktikan";
+        this.Size = new System.Drawing.Size(300, 200);
+
+        textBox = new TextBox { Width = 200, Top = 20, Left = 50 };
+        submitButton = new Button { Text = "Submit/Kirim", Width = 100, Top = 20, Left = 270 };
+        outputLabel = new Label { Text = "", Top = 55, Left = 50, Width = 200 };
+
+        submitButton.Click += OnSubmit;
+
+        this.Controls.Add(textBox);
+        this.Controls.Add(submitButton);
+        this.Controls.Add(outputLabel);
+    }
+
+    private void OnSubmit(object sender, EventArgs e)
+    {
+        string name = textBox.Text;
+        if (!string.IsNullOrEmpty(name))
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            outputLabel.Text = $"Halo {name} -!";
         }
+        else
+        {
+            outputLabel.Text = "Silakan masukkan nama";
+        }
+    }
+
+    [STAThread]
+    public static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.Run(new MainForm());
     }
 }
